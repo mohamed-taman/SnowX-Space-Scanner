@@ -9,6 +9,7 @@ import rs.tm.siriusx.snowx.space.data.Space;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,84 +23,89 @@ import static rs.tm.siriusx.snowx.space.attacker.AttackerType.TORPEDO;
  */
 class RejectosDetectorTest {
 
-  private static List<Rejectos> attackers;
-  private static Space space;
+    private static List<Rejectos> attackers;
+    private static Space space;
 
-  @BeforeAll
-  static void initialize() {
-    space = new Space(getResource("TestData.snw"));
-  }
-
-  @AfterAll
-  static void tearDown() {
-    attackers = null;
-  }
-
-  private static String getResource(String fileName) {
-    try {
-      fileName =
-          Paths.get(RejectosDetectorTest.class.getClassLoader().getResource(fileName).toURI())
-              .toString();
-    } catch (URISyntaxException e) {
-      System.err.println(e.getMessage());
+    @BeforeAll
+    static void initialize() {
+        space = new Space(getResource("TestData.snw"));
     }
-    return fileName;
-  }
 
-  @BeforeEach
-  public void setup() {
-    attackers = null;
-  }
+    @AfterAll
+    static void tearDown() {
+        attackers = null;
+    }
 
-  @DisplayName("Test that all patterns are loaded successfully.")
-  @Test
-  void testValidPatternDataLoaded() {
+    private static String getResource(String fileName) {
+        try {
+            fileName =
+                    Paths.get(Objects
+                            .requireNonNull(RejectosDetectorTest
+                                    .class
+                                    .getClassLoader()
+                                    .getResource(fileName))
+                            .toURI())
+                            .toString();
+        } catch (URISyntaxException e) {
+            System.err.println(e.getMessage());
+        }
+        return fileName;
+    }
 
-    attackers =
-        List.of(
-            new Rejectos(SHIP, getResource("HPship.snw")),
-            new Rejectos(TORPEDO, getResource("HPTorpedo.snw")));
+    @BeforeEach
+    public void setup() {
+        attackers = null;
+    }
 
-    assertNotNull(attackers.get(0).getData(), "Ship pattern data is not loaded.");
+    @DisplayName("Test that all patterns are loaded successfully.")
+    @Test
+    void testValidPatternDataLoaded() {
 
-    assertNotNull(attackers.get(1).getData(), "Torpedo pattern data is not loaded.");
+        attackers =
+                List.of(
+                        new Rejectos(SHIP, getResource("HPship.snw")),
+                        new Rejectos(TORPEDO, getResource("HPTorpedo.snw")));
 
-    assertNotNull(space.getData(), "Space pattern data is not loaded.");
-  }
+        assertNotNull(attackers.get(0).getData(), "Ship pattern data is not loaded.");
 
-  @DisplayName("Test threshold and returned count of Ships")
-  @ParameterizedTest(name = "With threshold \"{0}\", detected Ships count should be {1}")
-  @CsvSource({"0.60, 5", "0.70, 2", "0.50, 19"})
-  void testShipsCountForThreshold(String threshold, int count) {
+        assertNotNull(attackers.get(1).getData(), "Torpedo pattern data is not loaded.");
 
-    attackers = List.of(new Rejectos(SHIP, getResource("HPship.snw"), threshold));
+        assertNotNull(space.getData(), "Space pattern data is not loaded.");
+    }
 
-    assertEquals(count, RejectosDetector.detectAttackers(attackers, space).size());
-  }
+    @DisplayName("Test threshold and returned count of Ships")
+    @ParameterizedTest(name = "With threshold \"{0}\", detected Ships count should be {1}")
+    @CsvSource({"0.60, 5", "0.70, 2", "0.50, 19"})
+    void testShipsCountForThreshold(String threshold, int count) {
 
-  @DisplayName("Test threshold and returned count of Torpedos")
-  @ParameterizedTest(name = "With threshold \"{0}\", detected Torpedos count should be {1}")
-  @CsvSource({"0.60, 3", "0.70, 2", "0.50, 25"})
-  void testTorpedoCountForThreshold(String threshold, int count) {
+        attackers = List.of(new Rejectos(SHIP, getResource("HPship.snw"), threshold));
 
-    attackers = List.of(new Rejectos(TORPEDO, getResource("HPTorpedo.snw"), threshold));
+        assertEquals(count, RejectosDetector.detectAttackers(attackers, space).size());
+    }
 
-    assertEquals(count, RejectosDetector.detectAttackers(attackers, space).size());
-  }
+    @DisplayName("Test threshold and returned count of Torpedos")
+    @ParameterizedTest(name = "With threshold \"{0}\", detected Torpedos count should be {1}")
+    @CsvSource({"0.60, 3", "0.70, 2", "0.50, 25"})
+    void testTorpedoCountForThreshold(String threshold, int count) {
 
-  @DisplayName("Test threshold and count of attackers")
-  @ParameterizedTest(name = "With threshold \"{0}\", detected attackers count should be {1}")
-  @CsvSource({"0.60, 8", "0.70, 4", "0.50, 44"})
-  void testCountOfAttackersThreshold(String threshold, int count) {
+        attackers = List.of(new Rejectos(TORPEDO, getResource("HPTorpedo.snw"), threshold));
 
-    attackers =
-        List.of(
-            new Rejectos(SHIP, getResource("HPship.snw"), threshold),
-            new Rejectos(TORPEDO, getResource("HPTorpedo.snw"), threshold));
+        assertEquals(count, RejectosDetector.detectAttackers(attackers, space).size());
+    }
 
-    assertEquals(
-        count,
-        RejectosDetector.detectAttackers(attackers, space).size(),
-        "Detected attackers counts should be: " + count + ", for threshold: " + threshold);
-  }
+    @DisplayName("Test threshold and count of attackers")
+    @ParameterizedTest(name = "With threshold \"{0}\", detected attackers count should be {1}")
+    @CsvSource({"0.60, 8", "0.70, 4", "0.50, 44"})
+    void testCountOfAttackersThreshold(String threshold, int count) {
+
+        attackers =
+                List.of(
+                        new Rejectos(SHIP, getResource("HPship.snw"), threshold),
+                        new Rejectos(TORPEDO, getResource("HPTorpedo.snw"), threshold));
+
+        assertEquals(
+                count,
+                RejectosDetector.detectAttackers(attackers, space).size(),
+                "Detected attackers counts should be: " + count + ", for threshold: " + threshold);
+    }
 }
