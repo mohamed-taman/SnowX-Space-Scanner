@@ -11,7 +11,9 @@ The output of the application for the number of detected _Ships_ and _Torpedos_ 
     
 The application will run, and prints the passed arguments, and the detected _Rejectos_ attackers, and for each attacker, it will provide information about its **type**, its space _coordinates_ as **X** and **Y**, and the original pattern size. And finally, the number if detected _Rejectos_.  
   
-- **FYI**: If the space image dimension is less than the Rejectos attacker's dimension the application will not detect anything. because you can see it with your eyes at that moment. :)  
+- **FYI**: If the space image dimension is less than the Rejectos attacker's dimension the application will not detect anything. because you can see it with your eyes at that moment. :)
+- Also, try to give the same image for comparison with threshold or **100%** with argument `-t 1`, it 
+will return 1 detected shape.
   
 In order to run the application properly, you need the following software to be installed on your machine. This application is using lates **Java SE 12 features**, therefore maven `pom.xml` edited accordingly to allow new language features in **preview** state.
 
