@@ -15,7 +15,7 @@ The application will run, and prints the passed arguments, and the detected _Rej
   
 In order to run the application properly, you need the following software to be installed on your machine. This application is using lates **Java SE 12 features**, therefore maven `pom.xml` edited accordingly to allow new language features in **preview** state.
 
-- For more about what is new in Java SE 11 and 12 check out my latest article for IBM Developer site [Explore new Java SE 11 and 12 APIs and language features]([https://developer.ibm.com/tutorials/java-theory-and-practice-1/](https://developer.ibm.com/tutorials/java-theory-and-practice-1/)), the whole series **"Java theory and practice"** is [here]([https://developer.ibm.com/series/java-theory-and-practice/](https://developer.ibm.com/series/java-theory-and-practice/)).
+- For more about what is new in Java SE 11 and 12 check out my latest article for IBM Developer site [Explore new Java SE 11 and 12 APIs and language features](https://developer.ibm.com/tutorials/java-theory-and-practice-1/), the whole series **"Java theory and practice"** is [here](https://developer.ibm.com/series/java-theory-and-practice/).
   
 ### Software requirements    
 * **Maven 3.6.3** and could be downloaded from [here](http://maven.apache.org/download.cgi).    
@@ -23,7 +23,8 @@ In order to run the application properly, you need the following software to be 
   
 After download all the required software, please make sure that _maven_ and _JDK_ `bin` folders are accessible from anywhere on your system.    
      
-### Up and running SnowXScanner To run this application you need to follow the following steps:    
+### Up and running SnowXScanner 
+To run this application you need to follow the following steps:    
 1. Clone the project using the following command:    
    ```bash    
    mohamed_taman:Projects$ git clone https://github.com/mohamed-taman/SnowX.git     
@@ -54,8 +55,8 @@ After download all the required software, please make sure that _maven_ and _JDK
 		[INFO] -----------------------------------------------------------------------  
 		```  
    The output of this process is 2 files as the following in the `target` folder:  
-	   1. `SnowX-v1.0.jar`: as **uber jar**, this jar contains all of its dependencies to run, and its size is bigger. 
-	   2. `original-SnowX-v1.0.jar`: as **thin jar**, this jar could be used as library inside any application. 
+   	1. `SnowX-v1.0.jar`: as **uber jar**, this jar contains all of its dependencies to run, and its size is bigger. 
+	2. `original-SnowX-v1.0.jar`: as **thin jar**, this jar could be used as library inside any application. 
 	   
 4. Now it's time to run the application, run it as the following:  
 	```bash  
