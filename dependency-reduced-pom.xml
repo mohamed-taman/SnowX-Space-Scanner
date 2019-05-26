@@ -11,7 +11,13 @@
         <version>3.8.0</version>
         <configuration>
           <release>${maven.compiler.release}</release>
-          <compilerArgs>--enable-preview</compilerArgs>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+          <fork>true</fork>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+            <arg>--enable-preview</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
@@ -85,6 +91,7 @@
     <maven.compiler.release>12</maven.compiler.release>
     <maven.compiler.target>12</maven.compiler.target>
     <maven.compiler.source>12</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.4.0-M1</junit.version>
   </properties>
 </project>

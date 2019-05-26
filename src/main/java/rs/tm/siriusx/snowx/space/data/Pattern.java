@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class is parent class for all shapes patterns with all common data.
@@ -35,17 +36,16 @@ abstract class Pattern {
     }
     // Initialize data array
     data = new char[testLines.size()][];
+    final var i = new AtomicInteger(0);
 
-    for (int i = 0; i < testLines.size(); i++) {
-      data[i] = testLines.get(i).toCharArray();
-
+    testLines.forEach(line ->{
+      data[i.getAndIncrement()] = line.toCharArray();
       // Calculate the number if '+' sign
-      for (char element : testLines.get(i).toCharArray()) {
-        if (element == '+') {
-          totalPoints++;
-        }
-      }
-    }
+      totalPoints += line
+              .chars()
+              .filter(ch -> ch == '+')
+              .count();
+    });
 
     // Assign pattern height and length.
     width = data[0].length;
