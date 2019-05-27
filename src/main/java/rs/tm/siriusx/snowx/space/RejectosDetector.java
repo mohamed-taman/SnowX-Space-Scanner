@@ -46,11 +46,11 @@ import java.util.List;
                         height = space.getHeight() - pattern.getHeight(),
                         width = space.getWidth() - pattern.getWidth();
 
-                for (int startRowIdx = 0; startRowIdx <= height; startRowIdx++)
+                for (var startRowIdx = 0; startRowIdx <= height; startRowIdx++)
                 {
                     endRowIdx = startRowIdx + pattern.getHeight();
 
-                    for (int startColIdx = 0; startColIdx <= width; startColIdx++)
+                    for (var startColIdx = 0; startColIdx <= width; startColIdx++)
                     {
                         endColIdx = startColIdx + pattern.getWidth();
 
