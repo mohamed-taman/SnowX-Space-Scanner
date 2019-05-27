@@ -41,13 +41,16 @@ import java.util.List;
             if (space.getWidth() >= pattern.getWidth() && space.getHeight() >= pattern.getHeight())
             {
                 // get the search window of test data
-                int endRowIdx, endColIdx;
+                int endRowIdx,
+                        endColIdx,
+                        height = space.getHeight() - pattern.getHeight(),
+                        width = space.getWidth() - pattern.getWidth();
 
-                for (int startRowIdx = 0; startRowIdx <= space.getHeight() - pattern.getHeight(); startRowIdx++)
+                for (int startRowIdx = 0; startRowIdx <= height; startRowIdx++)
                 {
                     endRowIdx = startRowIdx + pattern.getHeight();
 
-                    for (int startColIdx = 0; startColIdx <= space.getWidth() - pattern.getWidth(); startColIdx++)
+                    for (int startColIdx = 0; startColIdx <= width; startColIdx++)
                     {
                         endColIdx = startColIdx + pattern.getWidth();
 
@@ -75,13 +78,13 @@ import java.util.List;
                                                    int startRowIdx,
                                                    int startColIdx, int endRowIdx, int endColIdx)
     {
-        float matchedPoints = 0;
+        var matchedPoints = 0.0f;
 
         int shapeX = 0, shapeY = 0;
 
-        for (int x = startRowIdx; x < endRowIdx; x++)
+        for (var x = startRowIdx; x < endRowIdx; x++, shapeY = 0, shapeX++)
         {
-            for (int y = startColIdx; y < endColIdx; y++)
+            for (var y = startColIdx; y < endColIdx; y++, shapeY++)
             {
                 /*
                 check if + sign for each of space window shape and attacker pattern data at
@@ -91,11 +94,7 @@ import java.util.List;
                 {
                     matchedPoints++;
                 }
-                shapeY++;
             }
-            shapeY = 0;
-            shapeX++;
-
         }
         //return true if shape has matched points > defined threshold.
         return (matchedPoints / attacker.getTotalPoints() > attacker.getThreshold());
